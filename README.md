@@ -400,3 +400,70 @@ import { UserResolver } from './user.resolver';
 
 - http://localhost:3001/
 - http://localhost:3001/graphql
+
+### Запуск нашего проекта с помощью Docker. Создаём в корне приложения Dockerfile со следующим кодом:
+
+    FROM node:18-alpine AS builder
+    WORKDIR /app
+    COPY /*.json ./
+    COPY . .
+    RUN npm run build
+
+    FROM node:18-alpine
+    WORKDIR /app
+    COPY --from=builder /app ./
+    EXPOSE 3001
+    CMD ["npm", "run", "start:prod"]
+
+#### Добавляем Dockerfile в docker-compose.yml:
+
+    version: '3.8'
+
+    services:
+      db:
+        container_name: postgres-AngularNestJS_Full-stack
+        image: postgres
+        restart: always
+        environment:
+          - POSTGRES_USER=${TYPEORM_USERNAME}
+          - POSTGRES_PASSWORD=${TYPEORM_PASSWORD}
+          - POSTGRES_DB=${TYPEORM_DATABASE}
+        volumes:
+          - ./pgdata:/var/lib/postresql/data
+        ports:
+          - ${TYPEORM_PORT}:${TYPEORM_PORT}
+      backend:
+        container_name: backend-AngularNestJS_Full-stack
+        build:
+          context: ./backend
+        depends_on:
+          - db
+        restart: unless-stopped
+        ports:
+          - '${API_PORT}:3001'
+        environment:
+          - API_PORT=${API_PORT}
+          - API_HOST=${API_HOST}
+          - TYPEORM_CONNECTION=${TYPEORM_CONNECTION}
+          - TYPEORM_USERNAME=${TYPEORM_USERNAME}
+          - TYPEORM_PASSWORD=${TYPEORM_PASSWORD}
+          - TYPEORM_DATABASE=${TYPEORM_DATABASE}
+          - TYPEORM_PORT=${TYPEORM_PORT}
+          - TYPEORM_HOST=db
+      frontend:
+        container_name: frontend-AngularNestJS_Full-stack
+        build:
+          context: ./frontend
+        depends_on:
+          - db
+          - backend
+        restart: unless-stopped
+        ports:
+          - '80:80'
+
+### Запускаем наше приложение через контейнер Docer (если приложение запущено, в начале тормозим его командой в терминале: Ctrl + C):
+
+    cd ..
+    docker-compose down
+    docker ps    //посмотреть наши контейнеры
+    docker-compose up -d --build
