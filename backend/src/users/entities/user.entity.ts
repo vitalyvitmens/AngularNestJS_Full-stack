@@ -22,8 +22,8 @@ export class UserEntity {
   @UpdateDateColumn()
   updatedAt: Date;
 
-  @Field({ nullable: true })
-  @Column({ nullable: true })
+  @Field()
+  @Column()
   email: string;
 
   @Field({ nullable: true })
