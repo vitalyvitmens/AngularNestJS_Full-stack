@@ -1,36 +1,36 @@
 # AngularNestJS_Full-stack 
-backend & frontend приложение:  
+## backend & frontend приложение:  
 - backend на базе NestJS, в качестве базы данных выступает PostgreSQL,   
 для управления базой используется TypeORM, в качестве языка запроса у backend используется GraphQL.  
 - frontend на базе Angular.<br/>  
 Все это упаковано в docker-compose!
 
-# Метод установки и запуска:  
+### Метод установки и запуска:  
 Скопируйте к себе репозиторий:  
 https://github.com/vitalyvitmens/AngularNestJS_Full-stack
 
-# Создайте в корне репозитория .env файл, например:  
-API_PORT=3001<br/>  
-API_HOST=http://localhost:<br/>  
-TYPEORM_CONNECTION=postgres<br/>  
-TYPEORM_USERNAME=admin<br/>  
-TYPEORM_PASSWORD=123456<br/>  
-TYPEORM_DATABASE=AngularNestJS_Full-stack<br/>  
-TYPEORM_PORT=5432<br/>  
-TYPEORM_HOST=localhost<br/> 
+### Создайте в корне репозитория .env файл, например:  
+    API_PORT=3001  
+    API_HOST=http://localhost:  
+    TYPEORM_CONNECTION=postgres  
+    TYPEORM_USERNAME=admin 
+    TYPEORM_PASSWORD=123456 
+    TYPEORM_DATABASE=AngularNestJS_Full-stack  
+    TYPEORM_PORT=5432  
+    TYPEORM_HOST=localhost
 
-# Команды для Docker:  
-docker-compose up<br/>  
--d - для запуска в фоне<br/>  
---build - для повторной пересборки контейнеров<br/>  
-docker ps - посмотреть запущенные контейнеры<br/>  
+### Команды для Docker:  
+    docker-compose up  
+    -d - для запуска в фоне  
+    --build - для повторной пересборки контейнеров  
+    docker ps - посмотреть запущенные контейнеры  
 
-# Backend:  
-cd backend/<br/>  
-yarn install<br/>  
-yarn start<br/>  
+### Backend:  
+    cd backend/  
+    yarn install 
+    yarn start  
 
-# Frontend:  
-cd frontend/<br/>  
-yarn install<br/>  
-yarn start<br/>  
+### Frontend:  
+    cd frontend/ 
+    yarn install 
+    yarn start  
