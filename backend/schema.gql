@@ -6,7 +6,7 @@ type UserEntity {
   id: ID!
   createdAt: DateTime!
   updatedAt: DateTime!
-  email: String
+  email: String!
   name: String
 }
 

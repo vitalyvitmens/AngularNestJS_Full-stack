@@ -44,6 +44,8 @@ https://github.com/vitalyvitmens/AngularNestJS_Full-stack
 
 ## Создать с нуля подобное backend & frontend приложение:
 
+## Создаём backend приложение на базе NestJS:
+
 ### Устанавливаем NestJS и пакетный менеджер Yarn на комп:
 
     npm i -g @nestjs/cli
@@ -467,3 +469,84 @@ import { UserResolver } from './user.resolver';
     docker-compose down
     docker ps    //посмотреть наши контейнеры
     docker-compose up -d --build
+
+## Создаём frontend приложение на базе Angular:
+
+### Устанавливаем Angular на комп:
+
+    npm install -g @angular/cli
+
+### Переходим в ранее созданную папку с нашим проектом, в моём случае AngularNestJS_Full-stack для создания клиентской части приложения (в данном случае это папка frontend):
+
+    cd ..
+    ng new frontend --package-manager=yarn --routing --skip-git --skip-tests --style=scss
+
+### Добавляем стили bootstrap, что бы сократить время на верстку:
+
+    cd ..
+    yarn add bootstrap
+
+после установки стилей добавляем их в файл styles.scss:
+
+    @import "~bootstrap/dist/css/bootstrap.min.css";
+
+чтобы все было в одном стиле устанавливаем иконки bootstrap:
+
+    yarn add bootstrap-icons
+
+после установки иконок добавляем их в файл styles.scss:
+
+    @import "~bootstrap-icons/font/bootstrap-icons.css";
+
+в файле angular.json добавляем строку: "changeDetection": "OnPush"
+
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss",
+          "skipTests": true,
+          "changeDetection": "OnPush"
+        },
+
+### Пробуем запустить Angular:
+
+    cd frontend/
+    ng serve --open
+
+В случае успеха приложение откроется на http://localhost:4200/
+
+### Заходим в файл app.component.html удаляем все что внутри и взамен пишем свой код:
+
+    <div class="container pt-3">
+      <h1>Главная страница</h1>
+      <router-outlet></router-outlet>
+    </div>
+
+### Создаем файл src/app/components/nav.component.ts
+
+###########################################################################################
+
+### Устанавливаем GraphQL (если приложение запущено, в начале тормозим его командой в терминале: Ctrl + C):
+
+    cd frontend/
+    ng add apollo-angular
+
+? Url to your GraphQL API http://localhost:3001/graphql
+? Version of GraphQL 16 Enter
+
+### Переходим в папку environments/ и прописываем в 2х файлах uri взятый в файле graphql.module.ts а на его место вписываем переменную из environment.ts:
+
+    const uri = environment.graphql_uri;
+
+environment.ts:
+
+    export const environment = {
+      production: false,
+      graphql_uri: 'http://localhost:3001/graphql',
+    };
+
+environment.prod.ts:
+
+    export const environment = {
+      production: true,
+      graphql_uri: 'http://localhost:3001/graphql',
+    };
