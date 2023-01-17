@@ -4,3 +4,11 @@ export interface IMenu {
   href: string;
   icon?: string;
 }
+
+export interface IUser {
+  id: string;
+  name: string;
+  email: string;
+  createdAt: Date;
+  updatedAt: Date;
+}

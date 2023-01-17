@@ -12,7 +12,13 @@ import { HttpClientModule } from '@angular/common/http';
   declarations: [AppComponent, NavComponent],
   providers: [],
   bootstrap: [AppComponent],
-  imports: [BrowserModule, AppRoutingModule, IconModule, GraphQLModule, HttpClientModule],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    IconModule,
+    GraphQLModule,
+    HttpClientModule,
+  ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class AppModule {}
