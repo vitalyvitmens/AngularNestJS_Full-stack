@@ -6,6 +6,8 @@ import { IUser } from 'src/app/interfaces';
 import { GET_ALL_USERS, IGET_ALL_USERS } from './gql/get-all-users';
 import { GET_ONE_USER, IGET_ONE_USER } from './gql/get-one-user';
 import { DELETE_USER, IDELETE_USER } from './gql/delete-user';
+import { CREATE_USER, ICREATE_USER } from './gql/create-user';
+import { IUPDATE_USER, UPDATE_USER } from './gql/update-user';
 
 @Injectable({
   providedIn: 'root',
@@ -21,7 +23,7 @@ export class UsersService {
       .valueChanges.pipe(map(({ data }) => data?.getAllUsers));
   }
 
-  getOneUser(id: string): Observable<IUser> {
+  getOneUser(id: string): Observable<{ user: IUser; loading: boolean }> {
     return this.apollo
       .watchQuery<IGET_ONE_USER>({
         query: GET_ONE_USER,
@@ -29,8 +31,14 @@ export class UsersService {
           id: +id,
         },
       })
-      .valueChanges.pipe(map(({ data }) => data?.getOneUser));
+      .valueChanges.pipe(
+        map(({ data, loading }) => ({
+          user: data?.getOneUser,
+          loading,
+        }))
+      );
   }
+
   deleteUser(id: number): Observable<number | undefined> {
     return this.apollo
       .mutate<IDELETE_USER>({
@@ -41,5 +49,40 @@ export class UsersService {
         refetchQueries: ['getAllUsers'],
       })
       .pipe(map(({ data }) => data?.removeUser));
+  }
+
+  createUser(name: string, email: string): Observable<IUser | undefined> {
+    return this.apollo
+      .mutate<ICREATE_USER>({
+        mutation: CREATE_USER,
+        variables: {
+          createUser: {
+            name,
+            email,
+          },
+        },
+        refetchQueries: ['getAllUsers'],
+      })
+      .pipe(map(({ data }) => data?.createUser));
+  }
+
+  updateUser(
+    id: number,
+    name: string,
+    email: string
+  ): Observable<IUser | undefined> {
+    return this.apollo
+      .mutate<IUPDATE_USER>({
+        mutation: UPDATE_USER,
+        variables: {
+          updateUser: {
+            id,
+            email,
+            name,
+          },
+        },
+        refetchQueries: ['getOneUser'],
+      })
+      .pipe(map(({ data }) => data?.updateUser));
   }
 }

@@ -5,19 +5,21 @@ import { RouterModule } from '@angular/router';
 import { IconModule } from '../../components/icon/icon.module';
 import { UsersComponent } from './users.component';
 import { UserComponent } from './user/user.component';
+import { UserFormModule } from "../../components/user-form/user-form.module";
 
 @NgModule({
-  declarations: [UsersComponent, UserComponent],
-  imports: [
-    CommonModule,
-    RouterModule.forChild([
-      {
-        path: '',
-        component: UsersComponent,
-        children: [{ path: ':id', component: UserComponent }],
-      },
-    ]),
-    IconModule,
-  ],
+    declarations: [UsersComponent, UserComponent],
+    imports: [
+        CommonModule,
+        RouterModule.forChild([
+            {
+                path: '',
+                component: UsersComponent,
+                children: [{ path: ':id', component: UserComponent }],
+            },
+        ]),
+        IconModule,
+        UserFormModule
+    ]
 })
 export class UsersModule {}

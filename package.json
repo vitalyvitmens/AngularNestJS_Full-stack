@@ -1,6 +1,10 @@
 {
   "dependencies": {
-    "bootstrap": "^5.2.3",
-    "bootstrap-icons": "^1.10.3"
+    "bootstrap": "^4.0.0-alpha.6",
+    "bootstrap-icons": "^1.10.3",
+    "react-bootstrap": "^0.32.1"
+  },
+  "devDependencies": {
+    "webpack-cli": "^5.0.1"
   }
 }

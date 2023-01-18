@@ -6,7 +6,7 @@ export interface IMenu {
 }
 
 export interface IUser {
-  id: string;
+  id: any;
   name: string;
   email: string;
   createdAt: Date;

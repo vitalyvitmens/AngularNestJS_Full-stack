@@ -1,5 +1,5 @@
 import { gql } from 'apollo-angular';
-import { IUser } from '../../../interfaces';
+import { IUser } from 'src/app/interfaces';
 
 export interface IGET_ONE_USER {
   getOneUser: IUser;
