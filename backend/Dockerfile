@@ -8,5 +8,5 @@ FROM node:18-alpine
 WORKDIR /app
 COPY --from=builder /app ./
 EXPOSE 3001
-VOLUME ["/app/pgdata"]
+VOLUME ["/var/lib/postgresql/data"]
 CMD ["yarn", "run", "start:prod"]
