@@ -4,7 +4,6 @@
     "bootstrap-icons": "^1.8.1"
   },
   "devDependencies": {
-    "gh-pages": "^4.0.0",
-    "homepage": "https://vitalyvitmens.github.io/AngularNestJS_Full-stack"
+    "gh-pages": "^4.0.0"
   }
 }
